@@ -11,6 +11,11 @@ import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
+    var name_data : String?
+    var age_data : String?
+    var email_data : String?
+    
+    
     @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
@@ -26,6 +31,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
         
         sceneView.autoenablesDefaultLighting = true
+        
+        
+        print("Name : \(name_data) , age : \(age_data) , email : \(email_data)")
     }
     
     override func viewWillAppear(_ animated: Bool) {

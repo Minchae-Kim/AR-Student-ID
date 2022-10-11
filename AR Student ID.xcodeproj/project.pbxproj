@@ -13,6 +13,7 @@
 		4987B17528EEB2AD00A67ABC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4987B17328EEB2AD00A67ABC /* Main.storyboard */; };
 		4987B17728EEB2AD00A67ABC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4987B17628EEB2AD00A67ABC /* Assets.xcassets */; };
 		4987B17A28EEB2AD00A67ABC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4987B17828EEB2AD00A67ABC /* LaunchScreen.storyboard */; };
+		F5D7B93428F54A2C00A151B8 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D7B93328F54A2C00A151B8 /* DataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		4987B17428EEB2AD00A67ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4987B17628EEB2AD00A67ABC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4987B17928EEB2AD00A67ABC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F5D7B93328F54A2C00A151B8 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				4987B16D28EEB2AD00A67ABC /* AppDelegate.swift */,
 				4987B16F28EEB2AD00A67ABC /* art.scnassets */,
 				4987B17128EEB2AD00A67ABC /* ViewController.swift */,
+				F5D7B93328F54A2C00A151B8 /* DataViewController.swift */,
 				4987B17328EEB2AD00A67ABC /* Main.storyboard */,
 				4987B17628EEB2AD00A67ABC /* Assets.xcassets */,
 				4987B17828EEB2AD00A67ABC /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4987B17228EEB2AD00A67ABC /* ViewController.swift in Sources */,
+				F5D7B93428F54A2C00A151B8 /* DataViewController.swift in Sources */,
 				4987B16E28EEB2AD00A67ABC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
