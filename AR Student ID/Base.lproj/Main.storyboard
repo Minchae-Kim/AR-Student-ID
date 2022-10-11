@@ -34,7 +34,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Complete"/>
                                 <connections>
-                                    <action selector="SetData:" destination="cx4-QY-Bgl" eventType="touchUpInside" id="6zb-RD-LGl"/>
                                     <segue destination="BV1-FR-VrT" kind="show" id="VAN-js-8gk"/>
                                 </connections>
                             </button>

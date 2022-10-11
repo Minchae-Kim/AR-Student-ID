@@ -21,12 +21,11 @@ class DataViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func SetData(_ sender: Any) {
-
-        let vc = ViewController()
-        vc.name_data = SetName.text
-        vc.age_data = SetAge.text
-        self.present(vc, animated: false)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let nextViewController = segue.destination as? ViewController else {return}
+        
+        nextViewController.name_data = SetName.text
+        nextViewController.age_data = SetAge.text
     }
     
     /*
