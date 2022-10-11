@@ -15,11 +15,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var age_data : String?
     var email_data : String?
     
-    
-    @IBOutlet var sceneView: ARSCNView!
+    //@IBOutlet weak var sceneView: ARSCNView!
+    var sceneView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sceneView = ARSCNView()
+        
+        self.view.addSubview(sceneView)
+        
+        // add autolayout constraints
+        sceneView.translatesAutoresizingMaskIntoConstraints = false
+        sceneView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        sceneView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        sceneView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        sceneView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -33,7 +45,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.autoenablesDefaultLighting = true
         
         
-        print("Name : \(name_data!) , age : \(age_data!) , email : \(email_data!)")
+        print("Name : \(name_data!) , age : \(age_data!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {

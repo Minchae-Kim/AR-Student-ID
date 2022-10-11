@@ -28,8 +28,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgH-25-mU1">
-                                <rect key="frame" x="145" y="419" width="98" height="34.333333333333371"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgH-25-mU1">
+                                <rect key="frame" x="145" y="474" width="98" height="34.333333333333371"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Complete"/>
                                 <connections>
@@ -40,10 +41,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wN0-lP-yi9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="wN0-lP-yi9" firstAttribute="trailing" secondItem="AgH-25-mU1" secondAttribute="trailing" id="90T-6H-dsl"/>
-                            <constraint firstItem="wN0-lP-yi9" firstAttribute="bottom" secondItem="AgH-25-mU1" secondAttribute="bottom" constant="70" id="YiM-mb-0e6"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RAa-OC-RwL"/>
                     <connections>
@@ -94,9 +91,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="sFe-KD-doc"/>
                     <value key="contentSizeForViewInPopover" type="size" width="390" height="844"/>
-                    <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
