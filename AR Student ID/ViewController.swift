@@ -33,7 +33,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.autoenablesDefaultLighting = true
         
         
-        print("Name : \(name_data) , age : \(age_data) , email : \(email_data)")
+        print("Name : \(name_data!) , age : \(age_data!) , email : \(email_data!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
