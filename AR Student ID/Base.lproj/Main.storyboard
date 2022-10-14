@@ -43,8 +43,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="RAa-OC-RwL"/>
                     <connections>
-                        <outlet property="SetAge" destination="tI7-oo-uMt" id="GKP-xZ-h1J"/>
-                        <outlet property="SetName" destination="NS4-5I-B1F" id="ZxK-tz-jSt"/>
+                        <outlet property="age" destination="tI7-oo-uMt" id="jZ6-fr-DrH"/>
+                        <outlet property="name" destination="NS4-5I-B1F" id="pL6-rA-UyN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ul1-r2-XuA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -88,8 +88,63 @@
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sFe-KD-doc"/>
+                    <navigationItem key="navigationItem" id="sFe-KD-doc">
+                        <leftBarButtonItems>
+                            <barButtonItem title="+X" id="Erw-sZ-OBZ">
+                                <connections>
+                                    <action selector="movePlusXBtnTapped:" destination="BV1-FR-VrT" id="Zok-66-vlk"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="-X" id="kIU-up-2rz">
+                                <connections>
+                                    <action selector="moveMinusXBtnTapped:" destination="BV1-FR-VrT" id="w8i-bJ-Of5"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="+Y" id="ZCC-gq-s5R">
+                                <connections>
+                                    <action selector="movePlusYBtnTapped:" destination="BV1-FR-VrT" id="VeS-9B-57z"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="-Y" id="Eqm-Nq-F7K">
+                                <connections>
+                                    <action selector="moveMinusYBtnTapped:" destination="BV1-FR-VrT" id="gsq-hB-2mf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="+Z" id="ox5-1J-fqk">
+                                <connections>
+                                    <action selector="movePlusZBtnTapped:" destination="BV1-FR-VrT" id="GqC-HQ-U6Y"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="-Z" id="KAQ-c2-Q8o">
+                                <connections>
+                                    <action selector="moveMinusZBtnTapped:" destination="BV1-FR-VrT" id="HcS-dD-fbZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="byK-37-UOY">
+                                <connections>
+                                    <action selector="PopBtnTapped:" destination="BV1-FR-VrT" id="izj-3n-Km7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="done" id="3SU-kp-1Cv">
+                                <connections>
+                                    <action selector="doneBtnTapped:" destination="BV1-FR-VrT" id="Gli-iX-xvD"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <value key="contentSizeForViewInPopover" type="size" width="390" height="844"/>
+                    <connections>
+                        <outlet property="PopBtn" destination="byK-37-UOY" id="F1L-GR-07i"/>
+                        <outlet property="doneBtn" destination="3SU-kp-1Cv" id="LB9-yp-3x6"/>
+                        <outlet property="moveMinusXBtn" destination="kIU-up-2rz" id="xms-96-nGN"/>
+                        <outlet property="moveMinusYBtn" destination="Eqm-Nq-F7K" id="PNu-PT-7em"/>
+                        <outlet property="moveMinusZBtn" destination="KAQ-c2-Q8o" id="mSf-nd-9L9"/>
+                        <outlet property="movePlusXBtn" destination="Erw-sZ-OBZ" id="znm-0N-eqA"/>
+                        <outlet property="movePlusYBtn" destination="ZCC-gq-s5R" id="bkp-06-fiP"/>
+                        <outlet property="movePlusZBtn" destination="ox5-1J-fqk" id="tQb-h7-fol"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>

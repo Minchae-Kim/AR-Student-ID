@@ -8,24 +8,20 @@
 import UIKit
 
 class DataViewController: UIViewController {
-
-    @IBOutlet var SetName: UITextField!
     
-    @IBOutlet var SetAge: UITextField!
+    @IBOutlet var name: UITextField!
+    @IBOutlet var age: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        // Do any additional setup after loading the view.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let nextViewController = segue.destination as? ViewController else {return}
         
-        nextViewController.name_data = SetName.text
-        nextViewController.age_data = SetAge.text
+        nextViewController.name_data = name.text
+        nextViewController.age_data = age.text
     }
     
     /*
