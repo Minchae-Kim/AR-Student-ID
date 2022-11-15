@@ -339,7 +339,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let w = image_data!.size.width
         let h = image_data!.size.height
         
-        let node = SCNNode(geometry: SCNPlane(width: w*0.00001, height: h*0.00001))
+        let node = SCNNode(geometry: SCNPlane(width: w*0.00005, height: h*0.00005))
         node.geometry?.firstMaterial?.diffuse.contents = image_data
         node.name = type
         node.opacity = 0
