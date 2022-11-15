@@ -11,12 +11,13 @@ import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
-    var name_data : String?
-    var age_data : String?
+    var name_data: String?
+    var age_data: String?
+    var image_data: UIImage?
     
     var dataNodes: [SCNNode] = []
-    var namePos: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
-    var agePos: SCNVector3 = SCNVector3(x: 0, y: 0, z: 0)
+
+    var dicPos: [String: SCNVector3] = ["name": SCNVector3(x: 0, y: 0, z: 0), "age": SCNVector3(x: 0, y: 0, z: 0), "image": SCNVector3(x: 0, y: 0, z: 0)]
     
     var sceneView: ARSCNView!
     
@@ -33,7 +34,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var touchedNode: SCNNode!
     
     var selectedNode: SCNNode!
-    var isAdjusting: Bool!
+    var isAdjusting: Bool! = false
     
     var commercialPopUp: PopUp!
     
@@ -51,67 +52,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBAction func movePlusXBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.x += 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.x += 0.005
-            }
+            dicPos[selectedNode.name!]?.x += 0.005
         }
     }
     
     @IBAction func moveMinusXBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.x -= 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.x -= -0.005
-            }
+            dicPos[selectedNode.name!]?.x -= 0.005
         }
     }
     
     @IBAction func movePlusYBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.y += 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.y += -0.005
-            }
+            dicPos[selectedNode.name!]?.y += 0.005
         }
     }
     
     @IBAction func moveMinusYBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.y -= 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.y -= -0.005
-            }
+            dicPos[selectedNode.name!]?.y -= 0.005
         }
     }
     
     @IBAction func movePlusZBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.z += 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.z += -0.005
-            }
+            dicPos[selectedNode.name!]?.z += 0.005
         }
     }
     
     @IBAction func moveMinusZBtnTapped(_ sender: Any) {
         if selectedNode != nil {
-            if selectedNode.name == "name" {
-                namePos.z -= 0.005
-            }
-            else if selectedNode.name == "age" {
-                agePos.z -= -0.005
-            }
+            dicPos[selectedNode.name!]?.z -= 0.005
         }
     }
     
@@ -121,8 +92,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.commercialPopUp = PopUp(frame: self.view.frame)
         self.commercialPopUp.addNameBtn.addTarget(self, action: #selector(addName), for: .touchUpInside)
         self.commercialPopUp.addAgeBtn.addTarget(self, action: #selector(addAge), for: .touchUpInside)
+        self.commercialPopUp.addImageBtn.addTarget(self, action: #selector(addImage), for: .touchUpInside)
 
         self.view.addSubview(commercialPopUp)
+    }
+    
+    func OnAdjustingMode() {
+        isAdjusting = true
+        PopBtn.isHidden = true
+        doneBtn.isHidden = false
+        for btns in moveBtns {
+            btns.isHidden = false
+        }
+    }
+    
+    func OffAdjustingMode() {
+        isAdjusting = false
+        PopBtn.isHidden = false
+        doneBtn.isHidden = true
+        for btns in moveBtns {
+            btns.isHidden = true
+        }
     }
     
     @objc func addName() {
@@ -132,12 +122,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         
-        isAdjusting = true
-        PopBtn.isHidden = true
-        doneBtn.isHidden = false
-        for btns in moveBtns {
-            btns.isHidden = false
-        }
+        OnAdjustingMode()
         
         topBoxNodes[0].opacity = 0.5
         bottomBoxNodes[0].opacity = 0.5
@@ -154,12 +139,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         
-        isAdjusting = true
-        PopBtn.isHidden = true
-        doneBtn.isHidden = false
-        for btns in moveBtns {
-            btns.isHidden = false
-        }
+        OnAdjustingMode()
         
         topBoxNodes[0].opacity = 0.5
         bottomBoxNodes[0].opacity = 0.5
@@ -169,13 +149,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.commercialPopUp.removeFromSuperview()
     }
     
-    @IBAction func doneBtnTapped(_ sender: Any) {
-        isAdjusting = false
-        PopBtn.isHidden = false
-        doneBtn.isHidden = true
-        for btns in moveBtns {
-            btns.isHidden = true
+    @objc func addImage() {
+        for node in dataNodes {
+            if node.name == "image" {
+                selectedNode = node
+            }
         }
+        
+        OnAdjustingMode()
+        
+        topBoxNodes[0].opacity = 0.5
+        bottomBoxNodes[0].opacity = 0.5
+        leftBoxNodes[0].opacity = 0.5
+        rightBoxNodes[0].opacity = 0.5
+        
+        self.commercialPopUp.removeFromSuperview()
+    }
+    
+    
+    
+    @IBAction func doneBtnTapped(_ sender: Any) {
+        OffAdjustingMode()
         
         for node in topBoxNodes {
             node.opacity = 0
@@ -234,6 +228,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         for btns in moveBtns {
             btns.isHidden = true
         }
+        
+        // image
+        image_data = UIImage(named: "img.jpg")
     }
 
     
@@ -249,7 +246,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         if !hitResults.isEmpty {
             touchedNode = hitResults[0].node
-            print(touchedNode.name! as String)
+            //print(touchedNode.name! as String)
+            
+//            if !isAdjusting {
+//                for node in dataNodes {
+//                    if touchedNode.name == node.name {
+//                        selectedNode = node
+//                        print("ha")
+//                        OnAdjustingMode()
+//                    }
+//                }
+//            }
         }
     }
     
@@ -302,7 +309,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         createDataNode(type: "name", content: name_data!)
         createDataNode(type: "age", content: age_data!)
-        
+        createImageNode(type: "image")
         
         return topNode
     }
@@ -322,6 +329,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let dy = min.y + 0.5 * (max.y - min.y)
         let dz = min.z + 0.5 * (max.z - min.z)
         node.pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+        node.opacity = 0
+        
+        dataNodes.append(node)
+        topNode.addChildNode(node)
+    }
+    
+    func createImageNode(type: String) {
+        let w = image_data!.size.width
+        let h = image_data!.size.height
+        
+        let node = SCNNode(geometry: SCNPlane(width: w*0.00001, height: h*0.00001))
+        node.geometry?.firstMaterial?.diffuse.contents = image_data
+        node.name = type
         node.opacity = 0
         
         dataNodes.append(node)
@@ -440,110 +460,74 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor) {
         
-        if touchedNode != nil {
-            if touchedNode.name == "topBox1" {
-                topBoxNodes[0].opacity = 0
-                for i in 1..<topBoxNodes.count {
-                    topBoxNodes[i].opacity = 0.5
+        if isAdjusting {
+            if touchedNode != nil {
+                if touchedNode.name == "topBox1" {
+                    topBoxNodes[0].opacity = 0
+                    for i in 1..<topBoxNodes.count {
+                        topBoxNodes[i].opacity = 0.5
+                    }
                 }
-            }
-            else if touchedNode.name == "bottomBox1" {
-                bottomBoxNodes[0].opacity = 0
-                for i in 1..<bottomBoxNodes.count {
-                    bottomBoxNodes[i].opacity = 0.5
+                else if touchedNode.name == "bottomBox1" {
+                    bottomBoxNodes[0].opacity = 0
+                    for i in 1..<bottomBoxNodes.count {
+                        bottomBoxNodes[i].opacity = 0.5
+                    }
                 }
-            }
-            else if touchedNode.name == "leftBox1" {
-                leftBoxNodes[0].opacity = 0
-                for i in 1..<leftBoxNodes.count {
-                    leftBoxNodes[i].opacity = 0.5
+                else if touchedNode.name == "leftBox1" {
+                    leftBoxNodes[0].opacity = 0
+                    for i in 1..<leftBoxNodes.count {
+                        leftBoxNodes[i].opacity = 0.5
+                    }
                 }
-            }
-            else if touchedNode.name == "rightBox1" {
-                rightBoxNodes[0].opacity = 0
-                for i in 1..<rightBoxNodes.count {
-                    rightBoxNodes[i].opacity = 0.5
+                else if touchedNode.name == "rightBox1" {
+                    rightBoxNodes[0].opacity = 0
+                    for i in 1..<rightBoxNodes.count {
+                        rightBoxNodes[i].opacity = 0.5
+                    }
                 }
-            }
-            
-            
-            
-            
-            else if touchedNode.name == "topBox2" || touchedNode.name == "bottomBox3" || touchedNode.name == "leftBox4" || touchedNode.name == "rightBox4" {
-                allBoxesInvisible()
                 
-                selectedNode.opacity = 1
-                selectedNode.position = touchedNode.position
-                
-                if selectedNode.name == "name" {
-                    selectedNode.position.x += namePos.x
-                    selectedNode.position.y += namePos.y
-                    selectedNode.position.z += namePos.z
+                else if touchedNode.name == "topBox2" || touchedNode.name == "bottomBox3" || touchedNode.name == "leftBox4" || touchedNode.name == "rightBox4" {
+                    allBoxesInvisible()
+                    
+                    selectedNode.opacity = 1
+                    selectedNode.position = touchedNode.position
+                    
+                    selectedNode.position += dicPos[selectedNode.name!]!
                 }
-                else if selectedNode.name == "age" {
-                    selectedNode.position.x += agePos.x
-                    selectedNode.position.y += agePos.y
-                    selectedNode.position.z += agePos.z
-                }
-            }
-            
-            else if touchedNode.name == "topBox3" || touchedNode.name == "bottomBox2" || touchedNode.name == "leftBox2" || touchedNode.name == "rightBox2" {
-                allBoxesInvisible()
                 
-                selectedNode.opacity = 1
-                selectedNode.position = touchedNode.position
-                selectedNode.eulerAngles.x = -.pi/2
-                
-                if selectedNode.name == "name" {
-                    selectedNode.position.x += namePos.x
-                    selectedNode.position.y += namePos.y
-                    selectedNode.position.z += namePos.z
+                else if touchedNode.name == "topBox3" || touchedNode.name == "bottomBox2" || touchedNode.name == "leftBox2" || touchedNode.name == "rightBox2" {
+                    allBoxesInvisible()
+                    
+                    selectedNode.opacity = 1
+                    selectedNode.position = touchedNode.position
+                    selectedNode.eulerAngles.x = -.pi/2
+                    
+                    selectedNode.position += dicPos[selectedNode.name!]!
                 }
-                else if selectedNode.name == "age" {
-                    selectedNode.position.x += agePos.x
-                    selectedNode.position.y += agePos.y
-                    selectedNode.position.z += agePos.z
-                }
-            }
-            
-            else if touchedNode.name == "leftBox3" {
-                allBoxesInvisible()
                 
-                selectedNode.opacity = 1
-                selectedNode.position = touchedNode.position
-                selectedNode.eulerAngles.y = -.pi/2
-                
-                if selectedNode.name == "name" {
-                    selectedNode.position.x += namePos.x
-                    selectedNode.position.y += namePos.y
-                    selectedNode.position.z += namePos.z
+                else if touchedNode.name == "leftBox3" {
+                    allBoxesInvisible()
+                    
+                    selectedNode.opacity = 1
+                    selectedNode.position = touchedNode.position
+                    selectedNode.eulerAngles.y = -.pi/2
+                    
+                    selectedNode.position += dicPos[selectedNode.name!]!
                 }
-                else if selectedNode.name == "age" {
-                    selectedNode.position.x += agePos.x
-                    selectedNode.position.y += agePos.y
-                    selectedNode.position.z += agePos.z
-                }
-            }
-            
-            else if touchedNode.name == "rightBox3" {
-                allBoxesInvisible()
                 
-                selectedNode.opacity = 1
-                selectedNode.position = touchedNode.position
-                selectedNode.eulerAngles.y = .pi/2
-                
-                if selectedNode.name == "name" {
-                    selectedNode.position.x += namePos.x
-                    selectedNode.position.y += namePos.y
-                    selectedNode.position.z += namePos.z
-                }
-                else if selectedNode.name == "age" {
-                    selectedNode.position.x += agePos.x
-                    selectedNode.position.y += agePos.y
-                    selectedNode.position.z += agePos.z
+                else if touchedNode.name == "rightBox3" {
+                    allBoxesInvisible()
+                    
+                    selectedNode.opacity = 1
+                    selectedNode.position = touchedNode.position
+                    selectedNode.eulerAngles.y = .pi/2
+                    
+                    selectedNode.position += dicPos[selectedNode.name!]!
                 }
             }
         }
+            
     }
     
     
