@@ -11,8 +11,10 @@ class PopUp: UIView {
 
     @IBOutlet var addNameBtn: UIButton!
     @IBOutlet var addAgeBtn: UIButton!
+    @IBOutlet var addEmailBtn: UIButton!
+    @IBOutlet var addCareerBtn: UIButton!
     @IBOutlet var addImageBtn: UIButton!
-    
+    @IBOutlet var closeBtn: UIButton!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

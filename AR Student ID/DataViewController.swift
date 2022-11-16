@@ -11,10 +11,12 @@ class DataViewController: UIViewController {
     
     @IBOutlet var name: UITextField!
     @IBOutlet var age: UITextField!
-    
+    @IBOutlet var email: UITextField!
+    @IBOutlet var career: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -22,7 +24,10 @@ class DataViewController: UIViewController {
         
         nextViewController.name_data = name.text
         nextViewController.age_data = age.text
+        nextViewController.email_data = email.text
+        nextViewController.career_data = career.text
     }
+    
     
     /*
     // MARK: - Navigation
@@ -34,4 +39,14 @@ class DataViewController: UIViewController {
     }
     */
 
+}
+
+extension UIViewController {
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

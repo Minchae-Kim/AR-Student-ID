@@ -13,11 +13,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     var name_data: String?
     var age_data: String?
+    var email_data: String?
+    var career_data: String?
     var image_data: UIImage?
     
     var dataNodes: [SCNNode] = []
 
-    var dicPos: [String: SCNVector3] = ["name": SCNVector3(x: 0, y: 0, z: 0), "age": SCNVector3(x: 0, y: 0, z: 0), "image": SCNVector3(x: 0, y: 0, z: 0)]
+    var dicPos: [String: SCNVector3] = ["name": SCNVector3(x: 0, y: 0, z: 0), "age": SCNVector3(x: 0, y: 0, z: 0),
+                                        "email": SCNVector3(x: 0, y: 0, z: 0), "career": SCNVector3(x: 0, y: 0, z: 0),
+                                        "image": SCNVector3(x: 0, y: 0, z: 0)]
     
     var sceneView: ARSCNView!
     
@@ -92,7 +96,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.commercialPopUp = PopUp(frame: self.view.frame)
         self.commercialPopUp.addNameBtn.addTarget(self, action: #selector(addName), for: .touchUpInside)
         self.commercialPopUp.addAgeBtn.addTarget(self, action: #selector(addAge), for: .touchUpInside)
+        self.commercialPopUp.addEmailBtn.addTarget(self, action: #selector(addEmail), for: .touchUpInside)
+        self.commercialPopUp.addCareerBtn.addTarget(self, action: #selector(addCareer), for: .touchUpInside)
         self.commercialPopUp.addImageBtn.addTarget(self, action: #selector(addImage), for: .touchUpInside)
+        
+        self.commercialPopUp.closeBtn.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
+        
+        for node in dataNodes {
+            if node.opacity == 1 {
+                if node.name == "name" {
+                    self.commercialPopUp.addNameBtn.isEnabled = false
+                }
+                else if node.name == "age" {
+                    self.commercialPopUp.addAgeBtn.isEnabled = false
+                }
+                else if node.name == "email" {
+                    self.commercialPopUp.addEmailBtn.isEnabled = false
+                }
+                else if node.name == "career" {
+                    self.commercialPopUp.addCareerBtn.isEnabled = false
+                }
+                else if node.name == "image" {
+                    self.commercialPopUp.addImageBtn.isEnabled = false
+                }
+            }
+        }
 
         self.view.addSubview(commercialPopUp)
     }
@@ -149,6 +177,40 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.commercialPopUp.removeFromSuperview()
     }
     
+    @objc func addEmail() {
+        for node in dataNodes {
+            if node.name == "email" {
+                selectedNode = node
+            }
+        }
+        
+        OnAdjustingMode()
+        
+        topBoxNodes[0].opacity = 0.5
+        bottomBoxNodes[0].opacity = 0.5
+        leftBoxNodes[0].opacity = 0.5
+        rightBoxNodes[0].opacity = 0.5
+        
+        self.commercialPopUp.removeFromSuperview()
+    }
+    
+    @objc func addCareer() {
+        for node in dataNodes {
+            if node.name == "career" {
+                selectedNode = node
+            }
+        }
+        
+        OnAdjustingMode()
+        
+        topBoxNodes[0].opacity = 0.5
+        bottomBoxNodes[0].opacity = 0.5
+        leftBoxNodes[0].opacity = 0.5
+        rightBoxNodes[0].opacity = 0.5
+        
+        self.commercialPopUp.removeFromSuperview()
+    }
+    
     @objc func addImage() {
         for node in dataNodes {
             if node.name == "image" {
@@ -166,23 +228,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.commercialPopUp.removeFromSuperview()
     }
     
+    @objc func closePopup() {
+        OffAdjustingMode()
+        
+        self.commercialPopUp.removeFromSuperview()
+    }
     
     
     @IBAction func doneBtnTapped(_ sender: Any) {
         OffAdjustingMode()
         
-        for node in topBoxNodes {
-            node.opacity = 0
-        }
-        for node in bottomBoxNodes {
-            node.opacity = 0
-        }
-        for node in leftBoxNodes {
-            node.opacity = 0
-        }
-        for node in rightBoxNodes {
-            node.opacity = 0
-        }
+        allBoxesInvisible()
         
         selectedNode = nil
         touchedNode = nil
@@ -309,6 +365,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         createDataNode(type: "name", content: name_data!)
         createDataNode(type: "age", content: age_data!)
+        createDataNode(type: "email", content: email_data!)
+        createDataNode(type: "career", content: career_data!)
         createImageNode(type: "image")
         
         return topNode
@@ -321,7 +379,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let node = SCNNode(geometry: geometry)
         node.name = type
         
-        let fontSize = Float(0.001)
+        let fontSize = Float(0.0008)
         node.scale = SCNVector3(fontSize, fontSize, fontSize)
         
         let (min, max) = (geometry.boundingBox.min, geometry.boundingBox.max)
