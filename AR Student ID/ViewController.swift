@@ -286,7 +286,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
         
         // image
-        image_data = UIImage(named: "img.jpg")
+        //image_data = UIImage(named: "img.jpg")
     }
 
     
@@ -394,10 +394,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func createImageNode(type: String) {
-        let w = image_data!.size.width
-        let h = image_data!.size.height
+        var w = image_data!.size.width
+        var h = image_data!.size.height
+        while w >= 0.06 {
+            w *= 0.5
+            h *= 0.5
+        }
         
-        let node = SCNNode(geometry: SCNPlane(width: w*0.00001, height: h*0.00001))
+        let node = SCNNode(geometry: SCNPlane(width: w, height: h))
         node.geometry?.firstMaterial?.diffuse.contents = image_data
         node.name = type
         node.opacity = 0

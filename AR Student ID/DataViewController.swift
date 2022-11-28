@@ -14,9 +14,21 @@ class DataViewController: UIViewController {
     @IBOutlet var email: UITextField!
     @IBOutlet var career: UITextView!
     
+    @IBOutlet var imageLoadBtn: UIButton!
+    
+    var image: UIImage!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
+    }
+    
+    @IBAction func loadImage(_ sender: UIButton) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        present(vc, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -26,6 +38,10 @@ class DataViewController: UIViewController {
         nextViewController.age_data = age.text
         nextViewController.email_data = email.text
         nextViewController.career_data = career.text
+        
+        if image != nil {
+            nextViewController.image_data = image
+        }
     }
     
     
@@ -41,6 +57,7 @@ class DataViewController: UIViewController {
 
 }
 
+
 extension UIViewController {
     func hideKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
@@ -48,5 +65,21 @@ extension UIViewController {
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension DataViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let img = info[UIImagePickerController.InfoKey.originalImage] {
+            image = img as? UIImage
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
